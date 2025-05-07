@@ -31,7 +31,3 @@ package-lock.json
 
 # Air
 tmp/
-
-*.md
-.roo/
-.vscode/
