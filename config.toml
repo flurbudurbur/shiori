@@ -1,0 +1,60 @@
+# configuration file
+
+check_for_updates = true
+
+# Secret key used for securing user sessions. Change this in production!
+# Required.
+session_secret = "37335a8067c2fb35a3cbe13386a62243"
+
+[server]
+host = "127.0.0.1"
+port = 8282
+# Base URL path if serving the application under a subdirectory (e.g., /syncyomi/).
+# Not needed for subdomains or direct port access.
+base_url = ""
+
+[database]
+# Type of database to use. Supported: "sqlite", "postgres".
+# Default: "sqlite"
+type = "postgres"
+
+# PostgreSQL connection settings (only used if database.type is "postgres").
+[database.postgres]
+host = "127.0.0.1"
+port = "5432"
+database = "syncyomi"
+username = "postgres"
+password = "postgres"
+# Options: "disable", "allow", "prefer", "require", "verify-ca", "verify-full"
+# See: https://www.postgresql.org/docs/current/libpq-ssl.html#LIBPQ-SSL-SSLMODE-STATEMENTS
+ssl_mode = "disable"
+
+[logging]
+# Path to the log file. If empty, logs to standard output (stdout).
+# Use forward slashes (/).
+path = "log/"
+# Options: "ERROR", "WARN", "INFO", "DEBUG", "TRACE"
+level = "DEBUG"
+max_file_size = 50
+max_backup_count = 3
+
+[valkey]
+address = "localhost:6379"
+password = "SyncYomi"
+db = 0
+
+[uuid_cleanup]
+enabled = true
+# Schedule for UUID cleanup in cron format. Default: "0 0 * * *" (daily at midnight).
+# Visit https://crontab.guru/ for help with cron syntax.
+schedule = "0 0 * * *"
+inactivity_days = 60
+delete_orphaned_uuids = true
+use_soft_delete = false
+
+# [rate_limits]
+# enabled = true
+# requests_per_minute = 
+# window_seconds = 
+# exempt_roles = 
+# exempt_internal_ips = 

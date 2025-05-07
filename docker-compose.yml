@@ -1,0 +1,37 @@
+version: '3.9'
+services:
+  # syncyomi:
+  #   image: syncyomi:dev
+  #   container_name: syncyomi
+  #   volumes:
+  #     - ./config:/config
+  #   ports:
+  #     - '8282:8282'
+  #   depends_on:
+  #     - valkey
+  #     - postgres
+  postgres:
+    container_name: SyncYomi-postgres
+    image: postgres:15.1-alpine
+    restart: always
+    environment:
+      - POSTGRES_USER=SyncYomi
+      - POSTGRES_PASSWORD=SyncYomi
+    ports:
+      - '127.0.0.1:5434:5432'
+    volumes:
+      - postgres:/var/lib/postgresql/data
+  valkey:
+    container_name: SyncYomi-valkey
+    image: valkey/valkey:latest
+    restart: always
+    ports:
+      - '127.0.0.1:6379:6379'
+    volumes:
+      - valkey-data:/data
+    command: ["valkey-server", "--requirepass", "SyncYomi"]
+volumes:
+  postgres:
+    driver: local
+  valkey-data:
+    driver: local

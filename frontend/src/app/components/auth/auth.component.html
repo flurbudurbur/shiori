@@ -1,0 +1,37 @@
+<section class="py-16 md:py-24">
+  <div class="container mx-auto px-4 max-w-lg"> <!-- Constrain width -->
+
+    <!-- Registration Section -->
+    <div class="mb-12 text-center">
+      <h2 class="text-2xl md:text-3xl font-bold mb-4">Get Your Anonymous ID</h2>
+      <p class="text-gray-400 mb-4">Click below to generate a unique, anonymous bookmark ID. This is your private key to sync your data.</p>
+      <button
+        class="bg-teal-500 hover:bg-teal-600 text-gray-900 font-bold py-2 px-6 rounded-lg transition duration-300 disabled:opacity-50"
+        [disabled]="isGenerating || showApiKey">
+        {{ isGenerating ? 'Generating...' : (showApiKey ? 'Bookmark Generated' : 'Generate My Bookmark') }}
+      </button>
+      
+      <!-- Display error message -->
+      <p *ngIf="errorMessage" class="text-red-500 mt-4">{{ errorMessage }}</p>
+
+      <!-- Display the generated bookmark ID -->
+      <div *ngIf="showApiKey && generatedApiKey" class="mt-6 p-4 bg-gray-800 rounded border border-dashed border-teal-500">
+        <p class="text-gray-300 mb-2">Your new bookmark ID (Save this securely!):</p>
+        <p class="text-teal-400 text-lg break-all font-mono">{{ generatedApiKey.key }}</p>
+        <p class="text-red-400 text-sm mt-2 font-semibold">Warning: This bookmark ID will only be shown once. Copy it now and store it safely.</p>
+      </div>
+    </div>
+
+    <hr class="border-gray-700 my-8">
+
+    <!-- Login Section -->
+    <div class="text-center">
+      <h2 class="text-2xl md:text-3xl font-bold mb-4">Access Your Synced Data</h2>
+      <p class="text-gray-400 mb-4">Enter your previously saved bookmark ID in the Bookmark browser extension to access your synced data on any device.</p>
+      <!-- Login input will likely be in the browser extension, not here on the landing page. -->
+      <!-- This section serves mainly as explanation. -->
+       <p class="text-sm text-gray-500 mt-4">(You'll enter this bookmark ID in the browser extension settings)</p>
+    </div>
+
+  </div>
+</section>

@@ -1,0 +1,5 @@
+@import "tailwindcss";
+/* Styling for active nav link */
+.active-link {
+  @apply font-bold text-teal-400;
+}
