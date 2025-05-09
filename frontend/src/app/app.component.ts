@@ -17,13 +17,14 @@ import { TitleService } from './services/title.service';
 })
 export class AppComponent implements OnInit {
   // Local reference to title for use in this component if needed
-  private appTitle = 'Bookmark';
+  private appTitle = 'Shiori';
   
   constructor(private titleService: TitleService) {}
   
   ngOnInit(): void {
     // Set the application title when the app initializes
     // This will update the title in the service, which will propagate to NavComponent
+    // and also update the document title in the browser tab
     this.titleService.setTitle(this.appTitle);
   }
   
@@ -31,5 +32,6 @@ export class AppComponent implements OnInit {
   updateTitle(newTitle: string): void {
     this.appTitle = newTitle;
     this.titleService.setTitle(newTitle);
+    // The TitleService will handle updating the document title
   }
 }

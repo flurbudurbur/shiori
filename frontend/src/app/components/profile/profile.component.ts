@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { AuthService } from '../../services/auth.service';
 import { ApiService } from '../../services/api.service'; // Import ApiService
 import { FormsModule } from '@angular/forms'; // Import FormsModule if needed for other inputs, or remove if not
+import { TitleService } from '../../services/title.service';
+import { effect } from '@angular/core';
 
 @Component({
   selector: 'app-profile',
@@ -21,14 +23,27 @@ export class ProfileComponent implements OnInit {
   public copied: WritableSignal<boolean> = signal(false);
   public generatedUuid: WritableSignal<string | null> = signal(null); // Make it a signal for reactivity
   public uuidLoadingError: WritableSignal<string | null> = signal(null); // To display UUID loading errors
+  appTitle: string;
 
-  constructor(private authService: AuthService, private apiService: ApiService) { // Inject ApiService
+  constructor(
+    private authService: AuthService,
+    private apiService: ApiService,
+    private titleService: TitleService
+  ) {
     this.apiTokenSignal = this.authService.apiTokenSignal;
     this.uuidSignal = this.authService.userUuidSignal; // Assign in constructor
 
     if (this.apiTokenSignal() === null) {
       console.warn('ProfileComponent: Initial API Token from signal is null.');
     }
+    
+    // Get initial title
+    this.appTitle = this.titleService.getTitle();
+    
+    // Create an effect to update the title whenever it changes in the service
+    effect(() => {
+      this.appTitle = this.titleService.getTitle();
+    });
   }
 
   ngOnInit(): void {
