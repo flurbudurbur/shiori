@@ -3,7 +3,6 @@ import { HeroComponent } from '../hero/hero.component';
 import { FeaturesComponent } from '../features/features.component';
 import { HowItWorksComponent } from '../how-it-works/how-it-works.component';
 import { PrivacyCommitmentComponent } from '../privacy-commitment/privacy-commitment.component';
-import { AuthComponent } from '../auth/auth.component';
 import { FinalCtaComponent } from '../final-cta/final-cta.component';
 
 @Component({
@@ -14,7 +13,6 @@ import { FinalCtaComponent } from '../final-cta/final-cta.component';
     FeaturesComponent,
     HowItWorksComponent,
     PrivacyCommitmentComponent,
-    AuthComponent,
     FinalCtaComponent
   ],
   templateUrl: './home.component.html',

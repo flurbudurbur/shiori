@@ -13,7 +13,6 @@ import (
 	userService "github.com/flurbudurbur/Shiori/internal/user" // Import user service for errors
 	"github.com/go-chi/chi/v5/middleware"
 	"github.com/rs/zerolog"
-	valkeygo "github.com/valkey-io/valkey-go"
 )
 
 // ContextKey is a type for context keys to avoid collisions.
@@ -336,8 +335,7 @@ func (s *Server) isExemptFromRateLimit(r *http.Request, identifier string, ident
 // It uses a sliding window counter algorithm with Valkey for storing rate limit counters.
 func (s *Server) checkRateLimit(ctx context.Context, identifier string, identifierType string, limit int, windowSeconds int) (bool, int, error) {
 	// Get Valkey client
-	var valkeyClient valkeygo.Client
-	valkeyClient = s.valkeyService.GetClient() // This returns a valkeygo.Client
+	var valkeyClient = s.valkeyService.GetClient() // This returns a valkeygo.Client
 	if valkeyClient == nil {
 		return false, 0, fmt.Errorf("valkey client not available")
 	}

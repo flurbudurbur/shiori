@@ -5,7 +5,6 @@ import (
 	"io/fs"
 	"net/http"
 	"os"
-	"path"
 	"path/filepath"
 	"regexp"
 	"strconv"
@@ -42,7 +41,7 @@ func (h logsHandler) files(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	logsDir := path.Dir(h.cfg.Config.Logging.Path) // Access via nested Logging struct
+	logsDir := h.cfg.Config.Logging.Path // Use the directory path directly
 
 	// check if dir exists before walkDir
 	if _, err := os.Stat(logsDir); os.IsNotExist(err) {
@@ -129,7 +128,7 @@ func (h logsHandler) downloadFile(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	logsDir := path.Dir(h.cfg.Config.Logging.Path) // Access via nested Logging struct
+	logsDir := h.cfg.Config.Logging.Path // Use the directory path directly
 
 	// check if dir exists before walkDir
 	if _, err := os.Stat(logsDir); os.IsNotExist(err) {

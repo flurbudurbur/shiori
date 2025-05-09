@@ -1,19 +1,19 @@
-<div class="flex flex-col w-full max-w-[1200px] mx-auto gap-8 animate-fadeIn md:gap-8 md:px-0 px-4 min-h-[calc(100vh-10rem)] py-16">
-  <div class="w-full max-w-md bg-white dark:bg-gray-800 shadow-lg rounded-lg p-8">
-    <h2 class="text-2xl font-bold text-center text-gray-800 dark:text-gray-100 mb-6">Login</h2>
-    <p class="text-center text-gray-600 dark:text-gray-400 mb-6">
+<div class="flex flex-col items-center justify-center w-full max-w-[1200px] mx-auto gap-8 animate-fadeIn md:gap-8 md:px-0 px-4 h-[calc(100vh-10rem)] py-8">
+  <div class="w-full max-w-md bg-white/10 backdrop-blur-md border border-white/20 shadow-lg rounded-lg p-8 hover:shadow-xl transition-all mx-auto">
+    <h2 class="text-2xl font-bold text-center text-gray-100 mb-6">Login</h2>
+    <p class="text-center text-gray-300 mb-6">
       Enter your UUID to login.
     </p>
-    <form (ngSubmit)="loginUser()" #loginForm="ngForm">
-      <div class="mb-4">
-        <label for="uuid" class="block text-sm font-medium text-gray-700 dark:text-gray-300">UUID</label>
+    <form (ngSubmit)="loginUser()" #loginForm="ngForm" class="flex flex-col items-center">
+      <div class="mb-4 w-full">
+        <label for="uuid" class="block text-sm font-medium text-gray-300 text-center mb-2">UUID</label>
         <input
           type="text"
           id="uuid"
           name="uuid"
           [(ngModel)]="uuidInput"
           required
-          class="mt-1 block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm dark:bg-gray-700 dark:text-gray-200"
+          class="mt-1 block w-full px-3 py-2 bg-white/5 backdrop-blur-sm border border-teal-500/30 rounded-lg shadow-sm focus:outline-none focus:ring-teal-500/50 focus:border-teal-500/50 sm:text-sm text-gray-200 text-center"
           placeholder="Enter your UUID"
         />
       </div>
@@ -21,14 +21,14 @@
       <button
         type="submit"
         [disabled]="isLoading || loginForm.invalid"
-        class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800 transition duration-150 ease-in-out disabled:opacity-50 disabled:cursor-not-allowed"
+        class="w-full bg-teal-500/20 hover:bg-teal-500/40 backdrop-blur-sm border border-teal-500/30 text-teal-300 hover:text-white font-bold py-3 px-4 rounded-lg shadow-md transition duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
       >
         <span *ngIf="!isLoading">Login</span>
         <span *ngIf="isLoading">Logging in...</span>
       </button>
     </form>
 
-    <div *ngIf="errorMessage" class="mt-4 text-center text-red-600 dark:text-red-400 text-sm">
+    <div *ngIf="errorMessage" class="mt-4 text-center text-red-400 text-sm">
       {{ errorMessage }}
     </div>
   </div>

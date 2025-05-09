@@ -92,10 +92,10 @@ var configTemplate = `# config.toml
  [logging]
    # Log file path.
    # If empty or not set, logs will be written to standard output (stdout).
-   # Use forward slashes for paths (e.g., "log/syncyomi.log").
+   # Use forward slashes for paths (e.g., "log/").
    # Optional.
    # Default: ""
-   #path = ""
+   path = "log/"
  
    # Log level.
    # Determines the verbosity of logs.

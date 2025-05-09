@@ -6,7 +6,7 @@ import { Title } from '@angular/platform-browser';
 })
 export class TitleService {
   // Using signals for reactive state management
-  private titleSignal = signal<string>('SyncYomi');
+  private titleSignal = signal<string>('Shiori');
   
   constructor(private documentTitle: Title) {
     // Set the initial document title
