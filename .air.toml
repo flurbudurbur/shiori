@@ -16,7 +16,7 @@ bin = "tmp/main.exe" # Path to the compiled binary relative to root
 # Watch these filename extensions.
 include_ext = ["go", "tpl", "tmpl", "html"]
 # Ignore these filename extensions or directories.
-exclude_dir = ["assets", "tmp", "vendor", "frontend"] # Exclude frontend, tmp, etc.
+exclude_dir = ["assets", "tmp", "vendor", "web", "log"] # Exclude web, tmp, etc.
 # Watch these directories if you specified.
 include_dir = []
 # Exclude files.

@@ -17,7 +17,7 @@ all: clean build
 
 deps:
 	sudo npm install -g pnpm
-	cd frontend && pnpm install
+	cd web && pnpm install
 	go mod download
 
 build: deps build/web build/app
@@ -26,7 +26,7 @@ build/app:
 	go build -ldflags $(GOFLAGS) -o bin/$(SERVICE) main.go
 
 build/web:
-	cd frontend && pnpm build
+	cd web && pnpm build
 
 build/docker:
 	docker build -t syncyomi:dev -f Dockerfile . --build-arg GIT_TAG=$(GIT_TAG) --build-arg GIT_COMMIT=$(GIT_COMMIT) --build-arg BUILD_DATE=$(BUILD_DATE)

@@ -5,7 +5,7 @@ import (
 	"net"
 	"net/http"
 
-	"github.com/flurbudurbur/Shiori/frontend"
+	"github.com/flurbudurbur/Shiori/web"
 	"github.com/flurbudurbur/Shiori/internal/config"
 	"github.com/flurbudurbur/Shiori/internal/database"
 	"github.com/flurbudurbur/Shiori/internal/logger"

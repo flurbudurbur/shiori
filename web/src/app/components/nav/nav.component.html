@@ -1,0 +1,48 @@
+<nav class="bg-black/30 backdrop-blur-lg border border-white/10 shadow-lg p-4 text-white sticky top-0 z-50"
+  role="navigation" aria-label="Main navigation">
+  <div class="container mx-auto flex justify-between items-center">
+    <a routerLink="/"
+      class="text-xl font-bold focus:text-teal-400 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 focus:ring-offset-gray-800 rounded-md px-2">{{title}}</a>
+
+    <!-- Hamburger Menu Button (Visible on small screens) -->
+    <button (click)="toggleMobileMenu()"
+      class="md:hidden focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 focus:ring-offset-gray-800 p-1 rounded-md"
+      [attr.aria-expanded]="isMobileMenuOpen" aria-controls="mobile-menu" aria-label="Toggle navigation menu">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
+        aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+      </svg>
+    </button>
+
+    <!-- Navigation Links -->
+    <!-- Hidden on small screens by default, shown when menu is open -->
+    <!-- Visible and horizontal on medium screens and up -->
+    <div id="mobile-menu" [ngClass]="{'block': isMobileMenuOpen, 'hidden': !isMobileMenuOpen}"
+      class="absolute top-16 left-0 w-full bg-gray-800 md:static md:w-auto md:bg-transparent md:flex md:items-center"
+      role="menu">
+      <ul class="flex flex-col md:flex-row md:space-x-4 space-y-2 md:space-y-0 p-4 md:p-0 items-center" role="menubar">
+        <li role="none"><a routerLink="/" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}"
+            class="block py-2 md:py-0 hover:text-gray-300 focus:text-teal-400 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 focus:ring-offset-gray-800 rounded-md px-2"
+            (click)="isMobileMenuOpen = false" role="menuitem">Home</a></li>
+        <li role="none"><a routerLink="/about" routerLinkActive="active-link"
+            class="block py-2 md:py-0 hover:text-gray-300 focus:text-teal-400 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 focus:ring-offset-gray-800 rounded-md px-2"
+            (click)="isMobileMenuOpen = false" role="menuitem">About</a></li>
+        <li role="none"><a routerLink="/contact" routerLinkActive="active-link"
+            class="block py-2 md:py-0 hover:text-gray-300 focus:text-teal-400 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 focus:ring-offset-gray-800 rounded-md px-2"
+            (click)="isMobileMenuOpen = false" role="menuitem">Contact</a></li>
+        <!-- Add other nav items here if needed -->
+        <li role="none" class="flex items-center pt-2 md:pt-0">
+          <app-bookmark-button></app-bookmark-button>
+          <app-login-button class="ml-2"></app-login-button>
+        </li>
+        <li role="none">
+          <a href="https://github.com/flurbudurbur/shiori"
+            class="focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 focus:ring-offset-gray-800 rounded-md p-1 inline-block">
+            <img class="w-8 h-8 hover:scale-105 transition-all" src="github-mark-white.svg"
+              alt="Shiori GitHub repository - View source code">
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

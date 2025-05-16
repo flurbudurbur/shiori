@@ -1,0 +1,54 @@
+@import "tailwindcss";
+
+/* Styling for active nav link */
+.active-link {
+  @apply font-bold text-teal-400;
+}
+
+/* Global focus styles to match hover styles for better accessibility */
+:focus {
+  @apply outline-none;
+}
+
+/* Focus visible styles for keyboard navigation */
+:focus-visible {
+  @apply ring-2 ring-teal-500 ring-offset-2 ring-offset-gray-800;
+}
+
+/* Skip link styles */
+.sr-only {
+  @apply absolute w-px h-px p-0 -m-px overflow-hidden whitespace-nowrap border-0;
+}
+
+.sr-only:focus {
+  @apply not-sr-only w-auto h-auto m-0 p-2;
+}
+
+/* Improved button focus styles */
+button:focus,
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+  @apply outline-none ring-2 ring-teal-500 ring-offset-1;
+}
+
+/* High contrast focus for interactive elements */
+.interactive:focus-visible {
+  @apply ring-2 ring-teal-400 ring-offset-2 ring-offset-gray-800;
+}
+
+/* Ensure disabled elements have appropriate styling */
+[disabled] {
+  @apply opacity-50 cursor-not-allowed;
+}
+
+/* Ensure error states are clearly visible */
+[aria-invalid="true"] {
+  @apply border-red-500 ring-red-500;
+}
+
+/* Override for text-gray-400 to fix color contrast issues */
+.text-gray-400 {
+  color: #a3aab6 !important; /* Ensures 4.5:1 contrast ratio against #353e4d background */
+}

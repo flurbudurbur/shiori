@@ -1,12 +1,12 @@
 # build web
 FROM node:23-alpine3.21 AS web-builder
-WORKDIR /frontend
+WORKDIR /web
 
 # Copy package manifests
-COPY frontend/package.json frontend/package.json ./
+COPY web/package.json web/package.json ./
 
 # Copy web source code (respecting .dockerignore)
-COPY frontend/ .
+COPY web/ .
 
 # Install dependencies inside the container
 RUN npm install --frozen-lockfile
@@ -32,8 +32,8 @@ RUN go mod download
 
 COPY . ./
 
-COPY --from=web-builder /frontend/dist ./frontend/dist
-COPY --from=web-builder /frontend/build.go ./frontend
+COPY --from=web-builder /web/dist ./web/dist
+COPY --from=web-builder /web/build.go ./web
 
 RUN go build -ldflags "-s -w -X main.version=${VERSION} -X main.commit=${REVISION} -X main.date=${BUILDTIME}" -o bin/syncyomi main.go
 
