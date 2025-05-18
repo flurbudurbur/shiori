@@ -2,7 +2,7 @@ module github.com/flurbudurbur/Shiori
 
 go 1.23.0
 
-toolchain go1.24.2
+toolchain go1.24.3
 
 replace github.com/r3labs/sse/v2 => github.com/autobrr/sse/v2 v2.0.0-20230520125637-530e06346d7d
 
