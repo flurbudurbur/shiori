@@ -19,11 +19,11 @@ FROM golang:1.24.2-alpine3.21 AS app-builder
 
 ARG VERSION=dev
 ARG REVISION=dev
-ARG BUILDTIME
+ARG BUILDTIME=unknown
 
 RUN apk add --no-cache git make build-base tzdata
 
-ENV SERVICE=syncyomi
+ENV SERVICE=shiori
 
 WORKDIR /src
 
@@ -35,12 +35,12 @@ COPY . ./
 COPY --from=web-builder /web/dist ./web/dist
 COPY --from=web-builder /web/build.go ./web
 
-RUN go build -ldflags "-s -w -X main.version=${VERSION} -X main.commit=${REVISION} -X main.date=${BUILDTIME}" -o bin/syncyomi main.go
+RUN go build -ldflags "-s -w -X main.version=${VERSION} -X main.commit=${REVISION} -X main.date=${BUILDTIME}" -o bin/shiori main.go
 
 # build final image
 FROM alpine:latest
 
-LABEL org.opencontainers.image.source="https://github/SyncYomi/SyncYomi"
+LABEL org.opencontainers.image.source="https://github.com/flurbudurbur/Shiori"
 
 ENV HOME="/config" \
 XDG_CONFIG_HOME="/config" \
@@ -52,8 +52,8 @@ WORKDIR /app
 
 VOLUME /config
 
-COPY --from=app-builder /src/bin/syncyomi /usr/local/bin/
+COPY --from=app-builder /src/bin/shiori /usr/local/bin/
 
 EXPOSE 8282
 
-ENTRYPOINT ["/usr/local/bin/syncyomi", "--config", "/config"]
+ENTRYPOINT ["/usr/local/bin/shiori", "--config", "/config"]

@@ -30,7 +30,7 @@ jobs:
       - name: Set up Node
         uses: actions/setup-node@v4
         with:
-          node-vesion: "20.10.0"
+          node-version: "22.15.1"
 
       - name: Set up corepack
         run:
@@ -101,7 +101,7 @@ jobs:
 
       # 1.20 is the last version to support Windows < 10, Server < 2016, and MacOS < 1.15.
       - name: Set up Go
-        uses: actions/setup-go@v3
+        uses: actions/setup-go@v5
         with:
           go-version: "1.20.12"
           cache: true
@@ -129,7 +129,7 @@ jobs:
       - name: Upload assets
         uses: actions/upload-artifact@v4
         with:
-          name: syncyomi
+          name: shiori
           path: |
             dist/*.tar.gz
             dist/*.zip
@@ -230,7 +230,7 @@ jobs:
 
   docker-merge:
     name: Publish Docker multi-arch manifest
-    if: ${{ github.event.pull_request.head.repo.full_name == 'SyncYomi/SyncYomi' || github.event_name != 'pull_request' }}
+    if: ${{ github.event.pull_request.head.repo.full_name == github.repository || github.event_name != 'pull_request' }}
     runs-on: ubuntu-latest
     needs: [docker, test]
     steps:
