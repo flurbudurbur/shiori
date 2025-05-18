@@ -1,31 +1,27 @@
 services:
   shiori:
-    image: shiori:dev
+    image: ghcr.io/flurbudurbur/shiori:develop
     container_name: shiori
     volumes:
       - ./config:/config
     ports:
-      - '8282:8282'
+      - '127.0.0.1:8282:8282'
     depends_on:
       - valkey
       - postgres
   postgres:
     container_name: shiori-postgres
-    image: postgres:15.1-alpine
+    image: postgres:17.1-alpine
     restart: always
     environment:
       - POSTGRES_USER=shiori
       - POSTGRES_PASSWORD=shiori
-    ports:
-      - '127.0.0.1:5434:5432'
     volumes:
       - postgres:/var/lib/postgresql/data
   valkey:
     container_name: shiori-valkey
     image: valkey/valkey:latest
     restart: always
-    ports:
-      - '127.0.0.1:6379:6379'
     volumes:
       - valkey-data:/data
     command: [ "valkey-server", "--requirepass", "shiori" ]
