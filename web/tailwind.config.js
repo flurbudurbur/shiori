@@ -1,5 +1,5 @@
 /** @type {import('tailwindcss').Config} */
-module.exports = {
+export default {
   content: [
     "./src/**/*.{html,ts}",
   ],
@@ -36,12 +36,4 @@ module.exports = {
     },
   },
   plugins: [],
-  // Add focus-visible polyfill for better keyboard navigation
-  corePlugins: {
-    accessibility: true,
-    ringWidth: true,
-    ringColor: true,
-    ringOffsetWidth: true,
-    ringOffsetColor: true,
-  },
 }

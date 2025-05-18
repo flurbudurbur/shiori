@@ -1,10 +1,10 @@
-<div class="flex flex-col items-center justify-center w-full max-w-[1200px] mx-auto gap-8 animate-fadeIn md:gap-8 md:px-0 px-4 h-[calc(100vh-10rem)] py-8">
-  <div class="w-full max-w-md bg-white/10 backdrop-blur-md border border-white/20 shadow-lg rounded-lg p-8 hover:shadow-xl transition-all mx-auto">
-    <h1 class="text-2xl font-bold text-center text-gray-100 mb-6">Login</h1>
+<main class="flex flex-col items-center justify-center w-full max-w-[1200px] mx-auto gap-8 animate-fadeIn md:gap-8 md:px-0 px-4 h-[calc(100vh-10rem)] py-8" role="main">
+  <div class="w-full max-w-md bg-white/10 backdrop-blur-md border border-white/20 shadow-lg rounded-lg p-8 hover:shadow-xl transition-all mx-auto" role="region" aria-labelledby="login-heading">
+    <h1 id="login-heading" class="text-2xl font-bold text-center text-gray-100 mb-6">Login</h1>
     <p class="text-center text-gray-300 mb-6">
       Enter your UUID to login.
     </p>
-    <form (ngSubmit)="loginUser()" #loginForm="ngForm" class="flex flex-col items-center" novalidate>
+    <form (ngSubmit)="loginUser()" #loginForm="ngForm" class="flex flex-col items-center" novalidate role="form">
       <div class="mb-4 w-full">
         <label for="uuid" class="block text-sm font-medium text-gray-300 text-center mb-2">UUID</label>
         <input
@@ -39,4 +39,4 @@
       {{ errorMessage }}
     </div>
   </div>
-</div>
+</main>

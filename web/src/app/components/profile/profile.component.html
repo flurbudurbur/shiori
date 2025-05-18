@@ -1,11 +1,11 @@
-<div class="container mx-auto px-4 py-8">
+<main class="container mx-auto px-4 py-8" role="main">
   <h2 class="text-3xl font-bold mb-6 text-center text-gray-800 dark:text-gray-100">Your Profile & API Token</h2>
 
   <div class="max-w-xl mx-auto bg-white dark:bg-gray-800 shadow-md rounded-lg p-6">
 
     <!-- Display Generated UUID -->
-    <div class="mb-6">
-      <h3 class="text-xl font-semibold mb-2 text-gray-700 dark:text-gray-200">Your new {{appTitle}} ID</h3>
+    <section class="mb-6" aria-labelledby="uuid-heading">
+      <h3 id="uuid-heading" class="text-xl font-semibold mb-2 text-gray-700 dark:text-gray-200">Your new {{appTitle}} ID</h3>
       <div *ngIf="generatedUuid() as uuid; else uuidLoadingOrError">
         <p class="text-md font-mono bg-gray-100 dark:bg-gray-700 p-3 rounded break-all">
           {{ uuid }}
@@ -19,6 +19,6 @@
           <p class="text-md text-gray-500 dark:text-gray-400 p-3">Loading {{appTitle}} ID...</p>
         </ng-template>
       </ng-template>
-    </div>
+    </section>
   </div>
-</div>
+</main>

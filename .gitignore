@@ -34,3 +34,5 @@ tmp/
 
 # extension settings
 .vscode/
+
+*.exe
