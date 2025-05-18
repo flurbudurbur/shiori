@@ -27,12 +27,11 @@ bin/
 log/
 dist/
 .run/
-package-lock.json
+/config
 
 # Air
 tmp/
+*.exe
 
 # extension settings
 .vscode/
-
-*.exe
