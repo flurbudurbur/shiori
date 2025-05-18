@@ -2,7 +2,6 @@ package database
 
 import (
 	"context"
-	"fmt" // Import fmt for Sprintf
 
 	// "database/sql" // No longer needed
 	// sq "github.com/Masterminds/squirrel" // No longer needed
@@ -90,7 +89,7 @@ func (r *NotificationRepo) FindByID(ctx context.Context, id int) (*domain.Notifi
 	if result.Error != nil {
 		if errors.Is(result.Error, gorm.ErrRecordNotFound) {
 			// Use Wrap with Sprintf as Wrapf is not available
-			return nil, errors.Wrap(gorm.ErrRecordNotFound, fmt.Sprintf("notification with id %d not found", id))
+			return nil, errors.Wrap(gorm.ErrRecordNotFound, "notification with id %d not found", id)
 		}
 		r.log.Error().Err(result.Error).Int("id", id).Msg("Failed to find notification by ID")
 		return nil, errors.Wrap(result.Error, "failed to find notification by ID")
@@ -135,7 +134,7 @@ func (r *NotificationRepo) Update(ctx context.Context, notification domain.Notif
 		// For now, assume Save error handles non-existence if applicable.
 		r.log.Warn().Int("id", notification.ID).Msg("Update operation affected 0 rows, notification might not exist")
 		// Optionally return gorm.ErrRecordNotFound or a custom error
-		// return nil, errors.Wrap(gorm.ErrRecordNotFound, fmt.Sprintf("notification with id %d not found for update", notification.ID))
+		// return nil, errors.Wrap(gorm.ErrRecordNotFound, "notification with id %d not found for update", notification.ID)
 	}
 
 	r.log.Debug().Int("id", notification.ID).Msg("Successfully updated notification")
@@ -157,7 +156,7 @@ func (r *NotificationRepo) Delete(ctx context.Context, notificationID int) error
 		r.log.Warn().Int("id", notificationID).Msg("Attempted to delete non-existent notification")
 		// Return an error indicating the record was not found
 		// Use Wrap with Sprintf as Wrapf is not available
-		return errors.Wrap(gorm.ErrRecordNotFound, fmt.Sprintf("notification with id %d not found for deletion", notificationID))
+		return errors.Wrap(gorm.ErrRecordNotFound, "notification with id %d not found for deletion", notificationID)
 	}
 
 	r.log.Info().Int("id", notificationID).Msg("Successfully deleted notification")

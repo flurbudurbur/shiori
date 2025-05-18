@@ -2,7 +2,6 @@ package database
 
 import (
 	"context"
-	"fmt" // Import fmt for error messages
 	"time"
 
 	"github.com/flurbudurbur/Shiori/internal/domain"
@@ -109,7 +108,7 @@ func (r *UserRepo) UpdateDeletionDate(ctx context.Context, hashedUUID string, ne
 	if result.RowsAffected == 0 {
 		r.log.Warn().Str("hashed_uuid", hashedUUID).Msg("UpdateDeletionDate affected 0 rows, user HashedUUID might not exist")
 		// Return an error indicating user not found
-		return errors.Wrap(gorm.ErrRecordNotFound, fmt.Sprintf("user with hashed_uuid %s not found for deletion date update", hashedUUID))
+		return errors.Wrap(gorm.ErrRecordNotFound, "user with hashed_uuid %s not found for deletion date update", hashedUUID)
 	}
 
 	r.log.Debug().Str("hashed_uuid", hashedUUID).Time("newDeletionDate", newDeletionDate).Msg("Successfully updated user deletion date")
@@ -150,7 +149,7 @@ func (r *UserRepo) DeleteUserAndAssociatedData(ctx context.Context, hashedUUID s
 	if result.RowsAffected == 0 {
 		r.log.Warn().Str("hashed_uuid", hashedUUID).Msg("DeleteUser query affected 0 rows, user HashedUUID might not exist")
 		// Return error indicating user not found
-		return errors.Wrap(gorm.ErrRecordNotFound, fmt.Sprintf("user with hashed_uuid %s not found for deletion", hashedUUID))
+		return errors.Wrap(gorm.ErrRecordNotFound, "user with hashed_uuid %s not found for deletion", hashedUUID)
 	}
 
 	r.log.Info().Str("hashed_uuid", hashedUUID).Msg("Successfully deleted user (assuming CASCADE for related data)")
@@ -174,7 +173,7 @@ func (r *UserRepo) UpdateTokenAndScopes(ctx context.Context, hashedUUID string, 
 
 	if result.RowsAffected == 0 {
 		r.log.Warn().Str("hashed_uuid", hashedUUID).Msg("UpdateTokenAndScopes affected 0 rows, user HashedUUID might not exist")
-		return errors.Wrap(gorm.ErrRecordNotFound, fmt.Sprintf("user with hashed_uuid %s not found for token and scopes update", hashedUUID))
+		return errors.Wrap(gorm.ErrRecordNotFound, "user with hashed_uuid %s not found for token and scopes update", hashedUUID)
 	}
 
 	r.log.Debug().Str("hashed_uuid", hashedUUID).Msg("Successfully updated user token and scopes")

@@ -2,7 +2,6 @@ package database
 
 import (
 	"context"
-	"fmt"
 	"time"
 
 	"github.com/flurbudurbur/Shiori/internal/domain"
@@ -91,7 +90,7 @@ func (r *ProfileUUIDRepo) UpdateLastActivity(ctx context.Context, userID string,
 			Str("user_id", userID).
 			Str("profile_uuid", profileUUID).
 			Msg("UpdateLastActivity affected 0 rows, profile UUID might not exist")
-		return errors.Wrap(gorm.ErrRecordNotFound, fmt.Sprintf("profile UUID %s for user %s not found", profileUUID, userID))
+		return errors.Wrap(gorm.ErrRecordNotFound, "profile UUID %s for user %s not found", profileUUID, userID)
 	}
 
 	r.log.Debug().
@@ -249,7 +248,7 @@ func (r *ProfileUUIDRepo) DeleteProfileUUID(ctx context.Context, userID string, 
 			Str("user_id", userID).
 			Str("profile_uuid", profileUUID).
 			Msg("DeleteProfileUUID affected 0 rows, profile UUID might not exist")
-		return errors.Wrap(gorm.ErrRecordNotFound, fmt.Sprintf("profile UUID %s for user %s not found for deletion", profileUUID, userID))
+		return errors.Wrap(gorm.ErrRecordNotFound, "profile UUID %s for user %s not found for deletion", profileUUID, userID)
 	}
 
 	r.log.Info().
