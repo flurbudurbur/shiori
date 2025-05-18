@@ -2,7 +2,7 @@ before:
   hooks:
     - go mod tidy
 builds:
-  - id: syncyomi
+  - id: shiori
     env:
       - CGO_ENABLED=1
     goos:
@@ -28,10 +28,10 @@ builds:
       - goos: freebsd
         goarch: arm64
     main: main.go
-    binary: syncyomi
+    binary: shiori
 
 archives:
-  - id: syncyomi
+  - id: shiori
     format_overrides:
       - goos: windows
         format: zip
@@ -48,10 +48,7 @@ release:
     **Full Changelog**: https://github.com/flurbudurbur/Shiori/compare/{{ .PreviousTag }}...{{ .Tag }}
 
     ## Docker images
-    - `docker pull ghcr.io/syncyomi/syncyomi:{{ .Tag }}`
-
-    ## What to do next?
-    - Join our [Discord server](https://discord.gg/aydqBWAZs8)
+    - `docker pull ghcr.io/flurbudurbur/shiori:{{ .Tag }}`
 
 checksum:
   name_template: "{{ .ProjectName }}_{{ .Version }}_checksums.txt"
@@ -90,11 +87,11 @@ changelog:
       order: 999
 
 nfpms:
-  - package_name: syncyomi
-    homepage: https://syncyomi.com
-    maintainer: Syncyomi <packages@syncyomi.com>
+  - package_name: shiori
+    homepage: https://shiori.gg
+    maintainer: flurbudurbur <contact@shiori.gg>
     description: |-
-      SyncYomi is an open-source project designed to offer a seamless synchronization experience for your Tachiyomi manga reading progress and library across multiple devices. This server can be self-hosted, allowing you to sync your Tachiyomi library effortlessly.
+      Shiori is an open-source project forked from SyncYomi which seeks to make the service available to anyone without needing to spin up a docker container or using Google Drive.
     formats:
       - apk
       - deb
