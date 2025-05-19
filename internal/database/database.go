@@ -135,17 +135,22 @@ func (db *DB) Close() error {
 	// Cancel background context
 	db.cancel()
 
-	// GORM manages the underlying connection pool.
-	// Explicitly closing the *sql.DB instance might be necessary in some specific scenarios,
-	// but generally, it's handled by GORM. If needed:
-	// sqlDB, err := db.handler.DB()
-	// if err == nil && sqlDB != nil {
-	// 	 db.log.Info().Msg("Closing underlying database connection.")
-	//	 return sqlDB.Close()
-	// } else if err != nil {
-	//   db.log.Error().Err(err).Msg("Failed to get underlying DB for closing.")
-	//   return err
-	// }
+	if db.handler != nil {
+		sqlDB, err := db.handler.DB()
+		if err != nil {
+			db.log.Error().Err(err).Msg("Failed to get underlying *sql.DB for closing")
+			// Still attempt to log service closed, but return the error
+			return errors.Wrap(err, "failed to get underlying *sql.DB for closing")
+		}
+		if sqlDB != nil {
+			db.log.Info().Msg("Closing underlying database connection.")
+			errClose := sqlDB.Close()
+			if errClose != nil {
+				db.log.Error().Err(errClose).Msg("Error closing underlying database connection")
+				return errors.Wrap(errClose, "error closing underlying database connection")
+			}
+		}
+	}
 	db.log.Info().Msg("Database service closed.")
 	return nil
 }

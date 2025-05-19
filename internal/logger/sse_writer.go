@@ -15,9 +15,13 @@ import (
 	"github.com/rs/zerolog"
 )
 
+type SSEPublisher interface {
+	Publish(topic string, event *sse.Event)
+}
+
 type SSEWriter struct {
 	// SSE
-	SSE *sse.Server
+	SSE SSEPublisher
 
 	// TimeFormat specifies the format for timestamp in output.
 	TimeFormat string
@@ -26,7 +30,7 @@ type SSEWriter struct {
 	PartsOrder []string
 }
 
-func NewSSEWriter(sse *sse.Server, options ...func(w *SSEWriter)) SSEWriter {
+func NewSSEWriter(sse SSEPublisher, options ...func(w *SSEWriter)) SSEWriter {
 	w := SSEWriter{
 		SSE:        sse,
 		TimeFormat: defaultTimeFormat,

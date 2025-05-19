@@ -170,7 +170,7 @@ var configTemplate = `# config.toml
    use_soft_delete = false
  `
 
-func generateRandomString(length int) (string, error) {
+var generateRandomString = func(length int) (string, error) {
 	bytes := make([]byte, length)
 	if _, err := rand.Read(bytes); err != nil {
 		return "", err

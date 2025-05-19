@@ -12,8 +12,8 @@ type PostgresConfig struct {
 	Host     string `mapstructure:"host"`
 	Port     int    `mapstructure:"port"` // Kept as int, Viper should handle string conversion
 	Database string `mapstructure:"database"`
-	User     string `mapstructure:"username"`
-	Pass     string `mapstructure:"password"`
+	User     string `mapstructure:"user"`
+	Pass     string `mapstructure:"pass"`
 	SslMode  string `mapstructure:"ssl_mode"` // Changed tag from postgresSslMode to ssl_mode
 }
 
@@ -67,7 +67,7 @@ type Config struct {
 	Database    DatabaseConfig    `mapstructure:"database"`     // Nested Database config
 	Logging     LoggingConfig     `mapstructure:"logging"`      // Nested Logging config
 	Valkey      ValkeyConfig      `mapstructure:"valkey"`       // Nested Valkey config
-	RateLimit   RateLimitConfig   `mapstructure:"rate_limits"`   // Nested Rate Limit config
+	RateLimit   RateLimitConfig   `mapstructure:"rate_limit"`   // Nested Rate Limit config
 	UUIDCleanup UUIDCleanupConfig `mapstructure:"uuid_cleanup"` // Nested UUID Cleanup config
 }
 

@@ -3,19 +3,24 @@ package http
 import (
 	"net/http"
 
-	"github.com/flurbudurbur/Shiori/internal/database"
+	// "github.com/flurbudurbur/Shiori/internal/database" // No longer directly needed by healthHandler struct
 	"github.com/go-chi/chi/v5"
 )
 
-type healthHandler struct {
-	encoder encoder
-	db      *database.DB
+// DBPinger defines an interface for types that can be pinged.
+type DBPinger interface {
+	Ping() error
 }
 
-func newHealthHandler(encoder encoder, db *database.DB) *healthHandler {
+type healthHandler struct {
+	encoder encoder
+	dbPinger DBPinger // Changed from *database.DB to DBPinger interface
+}
+
+func newHealthHandler(encoder encoder, dbPinger DBPinger) *healthHandler { // Changed parameter type
 	return &healthHandler{
 		encoder: encoder,
-		db:      db,
+		dbPinger: dbPinger, // Use the interface
 	}
 }
 
@@ -29,7 +34,7 @@ func (h healthHandler) handleLiveness(w http.ResponseWriter, _ *http.Request) {
 }
 
 func (h healthHandler) handleReadiness(w http.ResponseWriter, _ *http.Request) {
-	if err := h.db.Ping(); err != nil {
+	if err := h.dbPinger.Ping(); err != nil { // Use the interface method
 		writeUnhealthy(w)
 		return
 	}

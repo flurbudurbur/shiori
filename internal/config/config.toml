@@ -1,0 +1,150 @@
+# config.toml
+ 
+ # Check for updates
+ # Default is: true
+ check_for_updates = true
+ 
+ # Session secret
+ # This is a randomly generated secret key for session management.
+ # It will be generated automatically on the first run if not set.
+ # Default: "d453aa8ee225b0126fe2032cff1acd3a" (dynamically generated)
+ session_secret = "d453aa8ee225b0126fe2032cff1acd3a"
+ 
+ [server]
+   # Hostname or IP address for the server to listen on.
+   # Default: "127.0.0.1" (e.g., "127.0.0.1" for local access, "0.0.0.0" for all interfaces, especially in Docker)
+   host = "127.0.0.1"
+ 
+   # Port for the server to listen on.
+   # Default: 8282
+   port = 8282
+ 
+   # Base URL for serving the application under a subdirectory (e.g., /syncyomi/).
+   # Leave empty if serving from the root or using a subdomain.
+   # Optional.
+   # Default: ""
+   #base_url = ""
+ 
+ [database]
+   # Database type to use.
+   # Supported: "sqlite", "postgres"
+   # Optional.
+   # Default: "sqlite"
+   type = "sqlite" # Default type explicitly set here
+ 
+   # --- PostgreSQL Settings ---
+   # These settings are only used if database.type is set to "postgres".
+   # Make sure PostgreSQL is installed and running before enabling.
+   [database.postgres] # Corrected to ensure this is always present in template for viper to find keys
+     # Hostname or IP address of the PostgreSQL server.
+     # Optional.
+     # Default: "localhost"
+     host = "localhost"
+ 
+     # Port of the PostgreSQL server.
+     # Optional.
+     # Default: 5432
+     port = 5432
+ 
+     # Name of the PostgreSQL database.
+     # Optional.
+     # Default: "postgres"
+     database = "postgres"
+ 
+     # Username for connecting to the PostgreSQL database.
+     # Optional.
+     # Default: "postgres"
+     user = "postgres"
+ 
+     # Password for the PostgreSQL user.
+     # Optional.
+     # Default: "postgres"
+     pass = "postgres"
+ 
+     # PostgreSQL SSL mode.
+     # Options: "disable", "allow", "prefer", "require", "verify-ca", "verify-full"
+     # Refer to PostgreSQL documentation for details: https://www.postgresql.org/docs/current/libpq-ssl.html#LIBPQ-SSL-SSLMODE-STATEMENTS
+     # Optional.
+     # Default: "disable"
+     ssl_mode = "disable"
+ 
+ [logging]
+   # Log file path.
+   # If empty or not set, logs will be written to standard output (stdout).
+   # Use forward slashes for paths (e.g., "log/").
+   # Optional.
+   # Default: ""
+   path = "log/"
+ 
+   # Log level.
+   # Determines the verbosity of logs.
+   # Options: "ERROR", "WARN", "INFO", "DEBUG", "TRACE"
+   # Default: "DEBUG"
+   level = "DEBUG"
+ 
+   # Maximum size of a log file in megabytes (MB) before it is rotated.
+   # Default: 50
+   max_file_size = 50
+ 
+   # Maximum number of old log files to keep.
+   # Default: 3
+   max_backup_count = 3
+ 
+ [valkey]
+   # Valkey server address (e.g., "localhost:6379").
+   # Optional.
+   # Default: "localhost:6379"
+   address = "localhost:6379"
+ 
+   # Password for Valkey server.
+   # Optional.
+   # Default: "SyncYomi" (matches Docker configuration)
+   password = "SyncYomi"
+ 
+   # Valkey database number.
+   # Optional.
+   # Default: 0
+   db = 0
+   
+ [rate_limit]
+   # Enable rate limiting for profile-related endpoints
+   # Default: true
+   enabled = true
+   
+   # Maximum number of requests allowed per time window
+   # Default: 20
+   requests_per_minute = 20
+   
+   # Time window in seconds for rate limiting
+   # Default: 60 (1 minute)
+   window_seconds = 60
+   
+   # Comma-separated list of roles exempt from rate limiting
+   # Default: "admin"
+   exempt_roles = "admin"
+   
+   # Comma-separated list of internal IPs exempt from rate limiting
+   # Default: "127.0.0.1,::1"
+   exempt_internal_ips = "127.0.0.1,::1"
+   
+ [uuid_cleanup]
+   # Enable scheduled cleanup of stale profile UUIDs
+   # Default: true
+   enabled = true
+   
+   # Cron schedule for the cleanup job
+   # Default: "0 3 * * 0" (3 AM every Sunday)
+   schedule = "0 3 * * 0"
+   
+   # Number of days of inactivity before a UUID is considered stale
+   # Default: 365 (1 year)
+   inactivity_days = 365
+   
+   # Whether to delete orphaned UUIDs (those without associated user records)
+   # Default: true
+   delete_orphaned_uuids = true
+   
+   # Whether to use soft delete (archive) instead of hard delete
+   # Default: false (use hard delete)
+   use_soft_delete = false
+ 
